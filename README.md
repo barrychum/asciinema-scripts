@@ -99,6 +99,8 @@ asciinema play -l --idle-time-limit=0.5 /path/to/your.cast
 
 This will limit the idle time between commands to 0.5 seconds.
 
+<img src="assets/output.svg" width="800" alt="Animated SVG">
+
 ## Docker Integration for SVG Conversion
 
 You can use Docker to convert the cast file generated in this repository to an SVG file.
@@ -181,5 +183,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Thanks to the [asciinema](https://asciinema.org) team for creating such a useful tool.
 
-<img src="output.svg" width="400" alt="Animated SVG">
+
 
