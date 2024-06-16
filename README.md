@@ -100,13 +100,82 @@ asciinema play -l --idle-time-limit=0.5 /path/to/your.cast
 
 This will limit the idle time between commands to 0.5 seconds.
 
-## Contributing
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a new Pull Request.
+
+## Docker Integration for SVG Conversion
+
+You can use Docker to convert the cast file generated in this repository to an SVG file.
+
+### Dockerfile
+
+```
+FROM node:14-alpine
+
+# Install dependencies
+RUN apk add --no-cache git python3 make g++ && \
+    npm install -g svg-term-cli && \
+    apk del git python3 make g++
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Entrypoint to pass arguments
+ENTRYPOINT ["svg-term"]
+```
+
+### Steps to Build and Run the Docker Container
+
+1. **Create a Dockerfile:**
+
+   Save the updated Dockerfile content to a file named `Dockerfile`.
+
+2. **Build the Docker Image:**
+
+   Open a terminal, navigate to the directory containing the Dockerfile, and run the following command to build the Docker image:
+
+   ```
+   docker build -t svg-term-converter .
+   ```
+
+3. **Run the Docker Container with Arguments:**
+
+   Run the following command to convert the input cast file to an output SVG file by specifying the filenames:
+
+   ```
+   docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out output.svg
+   ```
+
+### Example Commands
+
+Here’s a sequence of commands to create the Dockerfile, build the image, and run the container with specified filenames:
+
+```
+# Step 1: Create a Dockerfile
+cat <<EOF > Dockerfile
+FROM node:14-alpine
+
+# Install dependencies
+RUN apk add --no-cache git python3 make g++ && \
+    npm install -g svg-term-cli && \
+    apk del git python3 make g++
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Entrypoint to pass arguments
+ENTRYPOINT ["svg-term"]
+EOF
+
+# Step 2: Build the Docker image
+docker build -t svg-term-converter .
+
+# Step 3: Ensure the input cast file is in the current directory
+# Step 4: Run the Docker container to perform the conversion with specified filenames
+docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out output.svg
+
+# The output.svg should now be in the current directory
+```
+
 
 ## License
 
