@@ -1,10 +1,10 @@
-# Asciinema Pause Trimmer
+# asciinema Pause Trimmer
 
-A Python script to adjust pauses in Asciinema cast files, ensuring no pause exceeds a specified maximum duration. The script also allows setting a specific start time for the first event.
+A Python script to adjust pauses in asciinema cast files, ensuring no pause exceeds a specified maximum duration. The script also allows setting a specific start time for the first event.
 
 ## Features
 
-- Adjusts pauses in Asciinema cast files to a maximum specified duration.
+- Adjusts pauses in asciinema cast files to a maximum specified duration.
 - Allows setting a specific start time for the first event.
 - Formats timestamps to exactly 6 decimal places without quotes.
 
@@ -62,6 +62,44 @@ python trim_pauses.py example.cast
 
 The output file `example_trimmed.cast` will have the adjusted timestamps.
 
+## Basic asciinema Operations
+
+### Recording a Terminal Session
+
+To record a terminal session:
+
+```sh
+asciinema rec
+```
+
+This starts recording your terminal session. To finish and save the recording, press `Ctrl-D` or type `exit`.
+
+### Playing a Recording
+
+To play a recording:
+
+```sh
+asciinema play /path/to/your.cast
+```
+
+### Playing a Recording in Loop Mode
+
+To play a recording in a loop:
+
+```sh
+asciinema play -l /path/to/your.cast
+```
+
+### Playing a Recording with Idle Time Limit
+
+To play a recording with an idle time limit:
+
+```sh
+asciinema play -l --idle-time-limit=0.5 /path/to/your.cast
+```
+
+This will limit the idle time between commands to 0.5 seconds.
+
 ## Contributing
 
 1. Fork the repository.
@@ -76,4 +114,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Thanks to the [Asciinema](https://asciinema.org) team for creating such a useful tool.
+- Thanks to the [asciinema](https://asciinema.org) team for creating such a useful tool.
