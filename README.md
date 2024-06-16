@@ -180,3 +180,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 - Thanks to the [asciinema](https://asciinema.org) team for creating such a useful tool.
+
+<img src="output.svg" width="400" alt="Animated SVG">
+
