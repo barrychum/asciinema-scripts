@@ -2,6 +2,10 @@ import json
 import sys
 import os
 
+# Define the variable to set the starting timestamp for the first event
+first_event_start = 2 
+# Set this to the desired start time in seconds, or 0 to keep the original timestamp
+
 def adjust_pauses(cast_file, max_pause=0.5):
     events = []
     header = None
@@ -41,17 +45,16 @@ def adjust_pauses(cast_file, max_pause=0.5):
         else:
             adjusted_timestamps.append(adjusted_timestamps[-1] + pause)
 
-    # Normalize timestamps only if the first event starts in more than 0.5 seconds
-    start_time = adjusted_timestamps[0]
-    if start_time > 0.5:
-        normalized_timestamps = [round(ts - start_time + 0.5, 6) for ts in adjusted_timestamps]
+    # Normalize timestamps based on the first_event_start variable
+    if first_event_start != 0:
+        normalized_timestamps = [round(ts - original_timestamps[0] + first_event_start, 6) for ts in adjusted_timestamps]
     else:
         normalized_timestamps = [round(ts, 6) for ts in adjusted_timestamps]
 
     # Adjust the events with the new timestamps, formatted to 6 decimal places
     adjusted_events = []
     for i, event in enumerate(events):
-        formatted_timestamp = round(normalized_timestamps[i], 6)
+        formatted_timestamp = normalized_timestamps[i]
         adjusted_events.append([formatted_timestamp] + event[1:])
 
     # Determine the new file name
