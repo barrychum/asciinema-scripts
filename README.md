@@ -1,12 +1,11 @@
-# asciinema Pause Trimmer
+# asciinema scripts
 
-A Python script to adjust pauses in asciinema cast files, ensuring no pause exceeds a specified maximum duration. The script also allows setting a specific start time for the first event.
+This repository contains scripts for working with asciinema recordings, specifically for modifying recorded pauses and converting cast files to SVG.
 
 ## Features
 
-- Adjusts pauses in asciinema cast files to a maximum specified duration.
-- Allows setting a specific start time for the first event.
-- Formats timestamps to exactly 6 decimal places without quotes.
+- Adjust pauses in asciinema cast files to a maximum specified duration.
+- Set a specific start time for the first event.
 
 ## Requirements
 
@@ -17,8 +16,8 @@ A Python script to adjust pauses in asciinema cast files, ensuring no pause exce
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/yourusername/asciinema-pause-trimmer.git
-    cd asciinema-pause-trimmer
+    git clone https://github.com/barrychum/asciinema-scripts.git
+    cd asciinema-scripts
     ```
 
 2. Install the required dependencies:
@@ -29,22 +28,22 @@ A Python script to adjust pauses in asciinema cast files, ensuring no pause exce
 
 ## Usage
 
-1. **Adjust the `first_event_start` variable:**
+1. Adjust the `first_event_start` variable:
 
-   Open `trim_pauses.py` in your preferred text editor and set the `first_event_start` variable at the beginning of the script to your desired start time in seconds. Set it to `0` to keep the original timestamp of the first event.
+    Open `trim_pauses.py` in your preferred text editor and set the `first_event_start` variable at the beginning of the script to your desired start time in seconds. Set it to `0` to keep the original timestamp of the first event.
 
-   ```python
-   # Define the variable to set the starting timestamp for the first event
-   first_event_start = 0  # Set this to the desired start time in seconds, or 0 to keep the original timestamp
-   ```
+    ```python
+    # Define the variable to set the starting timestamp for the first event
+    first_event_start = 0  # Set this to the desired start time in seconds, or 0 to keep the original timestamp
+    ```
 
-2. **Run the script:**
+2. Run the script:
 
-   ```sh
-   python trim_pauses.py /path/to/your.cast
-   ```
+    ```sh
+    python trim_pauses.py /path/to/your.cast
+    ```
 
-   This will produce a new file with the adjusted pauses, saved as `<original_filename>_trimmed.cast` in the same directory as the input file.
+    This will produce a new file with the adjusted pauses, saved as `<original_filename>_trimmed.cast` in the same directory as the input file.
 
 ## Example
 
@@ -100,15 +99,13 @@ asciinema play -l --idle-time-limit=0.5 /path/to/your.cast
 
 This will limit the idle time between commands to 0.5 seconds.
 
-
-
 ## Docker Integration for SVG Conversion
 
 You can use Docker to convert the cast file generated in this repository to an SVG file.
 
 ### Dockerfile
 
-```
+```Dockerfile
 FROM node:14-alpine
 
 # Install dependencies
@@ -127,29 +124,29 @@ ENTRYPOINT ["svg-term"]
 
 1. **Create a Dockerfile:**
 
-   Save the updated Dockerfile content to a file named `Dockerfile`.
+    Save the updated Dockerfile content to a file named `Dockerfile`.
 
 2. **Build the Docker Image:**
 
-   Open a terminal, navigate to the directory containing the Dockerfile, and run the following command to build the Docker image:
+    Open a terminal, navigate to the directory containing the Dockerfile, and run the following command to build the Docker image:
 
-   ```
-   docker build -t svg-term-converter .
-   ```
+    ```sh
+    docker build -t svg-term-converter .
+    ```
 
 3. **Run the Docker Container with Arguments:**
 
-   Run the following command to convert the input cast file to an output SVG file by specifying the filenames:
+    Run the following command to convert the input cast file to an output SVG file by specifying the filenames:
 
-   ```
-   docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out output.svg
-   ```
+    ```sh
+    docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out output.svg
+    ```
 
 ### Example Commands
 
 Here’s a sequence of commands to create the Dockerfile, build the image, and run the container with specified filenames:
 
-```
+```sh
 # Step 1: Create a Dockerfile
 cat <<EOF > Dockerfile
 FROM node:14-alpine
@@ -175,7 +172,6 @@ docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out 
 
 # The output.svg should now be in the current directory
 ```
-
 
 ## License
 
