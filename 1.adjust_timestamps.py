@@ -9,25 +9,39 @@ def adjust_timestamps(input_file, output_file, start_time, max_interval):
         # Read all events
         events = [json.loads(line) for line in f]
 
-    # Adjust timestamps
-    first_timestamp = events[0][0]
-    for event in events:
-        # Shift all timestamps by start_time and subtract the first timestamp
-        event[0] = start_time + (event[0] - first_timestamp)
+    new_events = []
+    temp_event = []
+
+   # Adjust start time
+    temp_event = [element for element in events[0]]
+    temp_event[0] = start_time
+    new_events.append(temp_event)
 
     # Adjust intervals
     for i in range(1, len(events)):
+        temp_event = [element for element in events[i]]
         interval = events[i][0] - events[i-1][0]
-        if interval > max_interval:
-            # Format the adjusted timestamp with f-string
-            adjusted_timestamp = f"{events[i-1][0] + max_interval:.6f}"
-            events[i][0] = float(adjusted_timestamp)  # Convert back to float
+
+        break_interval = 1.0
+        if temp_event[2] == "\b  " :
+            temp_event[0] = new_events[i-1][0] + break_interval
+        else:
+            if interval > max_interval:
+                temp_event[0] = new_events[i-1][0] + max_interval
+            else:
+                temp_event[0] = new_events[i-1][0] + interval
+
+        # Format the adjusted timestamp with f-string
+        adjusted_timestamp = f"{temp_event[0]:.6f}"
+        temp_event[0] = float(adjusted_timestamp)  # Convert back to float
+
+        new_events.append(temp_event)
 
     # Write adjusted data to output file
     with open(output_file, 'w') as f:
         json.dump(header, f)
         f.write('\n')
-        for event in events:
+        for event in new_events:
             json.dump(event, f)
             f.write('\n')
 
