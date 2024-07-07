@@ -28,7 +28,7 @@ def extract(input_file, output_file, start, end):
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python insert_delay.py input_file output_file timestamp delay")
+        print("Usage: python 0.extract_cast.py input_file output_file <start in seconds> <end in seconds>")
         sys.exit(1)
     
     input_file = sys.argv[1]

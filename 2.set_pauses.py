@@ -39,7 +39,7 @@ def adjust_pause(input_file, output_file, pause):
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print("Usage: python script.py input.cast output.cast pause")
+        print("Usage: python 2.set_pauses.py input.cast output.cast pause")
         sys.exit(1)
 
     input_file = sys.argv[1]

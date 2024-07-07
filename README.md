@@ -1,11 +1,18 @@
 # asciinema scripts
 
-This repository contains scripts for working with asciinema recordings, specifically for modifying recorded pauses and converting cast files to SVG.
+asciinema is an excellent light weight terminal recoding software.  This repository contains scripts for working with asciinema recordings, specifically for modifying recorded pauses and converting cast files to SVG.
 
 ## Features
 
 - Adjust pauses in asciinema cast files to a maximum specified duration.
 - Set a specific start time for the first event.
+
+## asciinema quick start
+
+```
+# example
+asciinema rec --command "/usr/local/bin/bash --rcfile /Users/user/.bash5profile -i" --idle-time-limit 2 --quiet --overwrite test.cast
+```
 
 ## Requirements
 
@@ -20,47 +27,40 @@ This repository contains scripts for working with asciinema recordings, specific
     cd asciinema-scripts
     ```
 
-2. Install the required dependencies:
-
-    ```sh
-    pip install -r requirements.txt
-    ```
-
 ## Usage
 
-1. Adjust the `first_event_start` variable:
 
-    Open `trim_pauses.py` in your preferred text editor and set the `first_event_start` variable at the beginning of the script to your desired start time in seconds. Set it to `0` to keep the original timestamp of the first event.
-
-    ```python
-    # Define the variable to set the starting timestamp for the first event
-    first_event_start = 0  # Set this to the desired start time in seconds, or 0 to keep the original timestamp
-    ```
-
-2. Run the script:
-
-    ```sh
-    python trim_pauses.py /path/to/your.cast
-    ```
-
-    This will produce a new file with the adjusted pauses, saved as `<original_filename>_trimmed.cast` in the same directory as the input file.
-
-## Example
-
-Suppose you have a cast file named `example.cast` and you want to set the start time of the first event to `0.5` seconds and ensure no pause exceeds `0.5` seconds. Set the `first_event_start` variable to `0.5` in the script:
-
-```python
-first_event_start = 0.5
+#### Extract a section of the video
+```
+python 0.extract_cast.py input_file output_file <start in seconds> <end in seconds>
 ```
 
-Then run the script:
-
-```sh
-python trim_pauses.py example.cast
+#### Adjust the start time and maximum interval
+```
+python 1.adjust_timestamps.py input.cast output.cast start_time max_interval
 ```
 
-The output file `example_trimmed.cast` will have the adjusted timestamps.
+#### Insert a delay
+```
+python 2.insert_delay.py input_file output_file <time in seconds> delay
+```
 
+#### Set an interval 
+```
+python 2.set_delay.py input_file output_file <time in seconds> delay
+```
+
+#### Set pause interval (undocumented feature)
+
+`Note`: I noticed the recorded cast file has a special sequence "\b  " when you press spacebar twice.  I wrote a script to detect this key sequence and set the interval.  This function may break.  
+
+```
+python 2.set_pauses.py input.cast output.cast <pause in seconds>
+```
+  
+
+  
+  
 ## Basic asciinema Operations
 
 ### Recording a Terminal Session
@@ -72,6 +72,8 @@ asciinema rec
 ```
 
 This starts recording your terminal session. To finish and save the recording, press `Ctrl-D` or type `exit`.
+
+To pause and resume recording (e.g. to enter password), press `Ctrl-\`.
 
 ### Playing a Recording
 
@@ -99,7 +101,9 @@ asciinema play -l --idle-time-limit=0.5 /path/to/your.cast
 
 This will limit the idle time between commands to 0.5 seconds.
 
+<!--
 <img src="assets/output.svg" width="800" alt="Animated SVG">
+-->
 
 ## Docker Integration for SVG Conversion
 
@@ -170,10 +174,15 @@ docker build -t svg-term-converter .
 
 # Step 3: Ensure the input cast file is in the current directory
 # Step 4: Run the Docker container to perform the conversion with specified filenames
-docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out output.svg
+
+docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out output.svg --width 80 --height 24
+
 
 # The output.svg should now be in the current directory
 ```
+
+
+<img src="__test__/output.svg" width="400" height="300">
 
 ## License
 

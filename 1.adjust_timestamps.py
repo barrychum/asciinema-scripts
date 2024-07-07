@@ -47,7 +47,7 @@ def adjust_timestamps(input_file, output_file, start_time, max_interval):
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python script.py input.cast output.cast start_time max_interval")
+        print("Usage: python 1.adjust_timestamps.py input.cast output.cast start_time max_interval")
         sys.exit(1)
 
     input_file = sys.argv[1]

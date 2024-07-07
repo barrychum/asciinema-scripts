@@ -1,7 +1,7 @@
 import json
 import sys
 
-def insert_delay(input_file, output_file, timestamp, delay):
+def set_delay(input_file, output_file, timestamp, delay):
     with open(input_file, 'r') as f:
         # Read and parse the header
         header = json.loads(f.readline())
@@ -51,7 +51,7 @@ def insert_delay(input_file, output_file, timestamp, delay):
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python insert_delay.py input_file output_file timestamp delay")
+        print("Usage: python 2.set_delay.py input_file output_file timestamp delay")
         sys.exit(1)
     
     input_file = sys.argv[1]
@@ -59,5 +59,5 @@ if __name__ == "__main__":
     timestamp = float(sys.argv[3])
     delay = float(sys.argv[4])
 
-    insert_delay(input_file, output_file, timestamp, delay)
+    set_delay(input_file, output_file, timestamp, delay)
 

@@ -49,7 +49,7 @@ def insert_delay(input_file, output_file, timestamp, delay):
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python insert_delay.py input_file output_file timestamp delay")
+        print("Usage: python 2.insert_delay.py input_file output_file timestamp delay")
         sys.exit(1)
     
     input_file = sys.argv[1]
