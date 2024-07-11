@@ -181,8 +181,11 @@ docker run --rm -v $(pwd):/usr/src/app svg-term-converter --in input.cast --out 
 # The output.svg should now be in the current directory
 ```
 
-
+<!--
 <img src="__test__/output.svg" width="400" height="300">
+-->
+
+<img src="__test__/output.svg" width="400" >
 
 ## License
 
