@@ -155,7 +155,7 @@ Here’s a sequence of commands to create the Dockerfile, build the image, and r
 ```sh
 # Step 1: Create a Dockerfile
 cat <<EOF > Dockerfile
-FROM node:14-alpine
+FROM node:20-alpine
 
 # Install dependencies
 RUN apk add --no-cache git python3 make g++ && \
